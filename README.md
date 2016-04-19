@@ -5,7 +5,7 @@
   
 ------
 
-Apply deep learning on predicting TF binding sites
+Apply deep learning on predicting transcription factor (TF) binding sites
 ------
 
 To be finished...
