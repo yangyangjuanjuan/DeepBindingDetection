@@ -25,7 +25,8 @@ For each TF, multiple binding sequences were compiled into a corresponding PWM, 
 #### LSTM prediction
 DBD stores classification results as well as some statistics (training error, testing error, true positives, false positives, true negatives, false negatives, PPV, and accuracy) at each save point.  
 
-
+#### High PWM score negative cases
+Testing sequences comprised representative binding sites for the TF (positive cases) and noncoding non-binding sequences of which 3/4 were randomly sampled and another 1/4 were selected have "chance occurences of PWM matches"
 
 
 
