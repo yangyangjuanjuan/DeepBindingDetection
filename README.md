@@ -32,15 +32,15 @@ Testing sequences comprised representative binding sites for the TF (positive ca
 For each TF, the LSTM prediction was compared to PWM method. Generated figures including the trend of test errors, PPV, and accuracy. The following figures are for TF STAT1 as an example,
 
 <p align="center">
-  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/master/plots/STAT1_err.png" alt="testing errors"/>
+  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/master/plots/STAT1_err.png" alt="testing errors" width="480"/>
 </p>
 
 <p align="center">
-  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/master/plots/STAT1_PPV.png" alt="testing PPVs"/>
+  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/master/plots/STAT1_PPV.png" alt="testing PPVs" width="480"/>
 </p>
 
 <p align="center">
-  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/master/plots/STAT1_ACC.png" alt="testing ACCs"/>
+  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/master/plots/STAT1_ACC.png" alt="testing ACCs" width="480"/>
 </p>
 
 
