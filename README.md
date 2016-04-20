@@ -17,7 +17,7 @@ Based on "LSTM Networks for Sentiment Analysis" (as introduced by http://deeplea
 ### Comparison
 
 #### TFBS and noncoding sequences
-Representative binding site sequences $S_t$
+Representative binding site sequences $$S_t$$
 
 
 
