@@ -28,6 +28,19 @@ DBD stores classification results as well as some statistics (training error, te
 #### High PWM score negative cases
 Testing sequences comprised representative binding sites for the TF (positive cases) and noncoding non-binding sequences of which 3/4 were randomly sampled and another 1/4 were selected have "chance occurences of PWM matches"
 
+### Results
+For each TF, the LSTM prediction was compared to PWM method. Generated figures including the trend of test errors, PPV, and accuracy. The following figures are for TF STAT1 as an example,
 
+<p align="center">
+  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/master/plots/STAT1_err.png" alt="testing errors"/>
+</p>
+
+<p align="center">
+  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/master/plots/STAT1_PPV.png" alt="testing PPVs"/>
+</p>
+
+<p align="center">
+  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/master/plots/STAT1_ACC.png" alt="testing ACCs"/>
+</p>
 
 
