@@ -12,7 +12,7 @@ import glob
 import numpy
 import random
 
-def load_saves(path="./saves_highPWMscore", TF="FOS"):
+def load_saves(path="./saves_highPWMscore", TF="example"):
 	'''
 	:param path: path to folder saving all results from LSTM
 	:param TF: name of TF
@@ -20,10 +20,10 @@ def load_saves(path="./saves_highPWMscore", TF="FOS"):
 	print("loading LSTM results for "+TF)
 	savedfile = path+'/lstm_'+TF+".npz"
 	with numpy.load(savedfile) as data:
-		history_errs=data['history_errs']
-		history_stats=data['history_stats']
-		print("Have "+str(history_stats.shape[0])+" data points.")
-	return history_errs,history_stats
+		records=data['records']
+		records=records.tolist()
+		print("Have "+str(len(records))+" data points (TFs).")
+	return records
 
 def load_PWMsaves(path="./saves_PWMresult/PWMresults.npz"):
 	'''
@@ -75,36 +75,39 @@ if __name__ == '__main__':
 	pdf.close()
 
 	pdf = matplotlib.backends.backend_pdf.PdfPages("./plots/LSTM_errs.pdf")
-	for TF in allTF[:26]:
-		history_errs,history_stats=load_saves(TF=TF)
+	records=load_saves()
+	TFs=records.keys()
+	print(TFs)
+	for TF in TFs:
 		## for history_stats, it saves [TotalN, TP, TN, FP, FN, PPV (for train), TotalN, TP, TN, FP, FN, PPV (for valid), TotalN, TP, TN, FP, FN, PPV (for test)]
 		idx_in_PWMresults=TF_stats_names.index(TF)
 		PPV_PWM=allPPV[idx_in_PWMresults]
 		ACC_PWM=(float(TF_stats[idx_in_PWMresults][1]) + float(TF_stats[idx_in_PWMresults][2]))/(float(TF_stats[idx_in_PWMresults][1]) + float(TF_stats[idx_in_PWMresults][2]) + float(TF_stats[idx_in_PWMresults][3]) + float(TF_stats[idx_in_PWMresults][4]))
 
-		idx=numpy.arange(len(history_errs))
-		test_errs=[history_errs[n][1] for n in idx]
+		idx=numpy.arange(len(records[TF]['val_loss']))
+		test_errs=records[TF]['val_loss']
 		plt.figure()
 		plt.plot(idx, test_errs, 'bo', idx, test_errs, 'k')
 		plt.title("Test errs for "+TF)
 		plt.xlabel("save points")
 		plt.savefig(pdf, format='pdf')
 
-		test_PPVs=[history_stats[n][17] for n in idx]
-		fig = plt.figure()
-		ax = fig.add_subplot(111)
-		plt.plot(idx, test_PPVs, 'bo', idx, test_PPVs, 'k')
-		plt.plot(idx, [max(test_PPVs)]*len(idx),linestyle='--', color='r',)
-		ax.annotate(str(max(test_PPVs)), xy=(0, max(test_PPVs)), xytext=(0, max(test_PPVs)),color='b')
-		plt.plot(idx, [PPV_PWM]*len(idx),linestyle='--', color='gray',)
-		ax.annotate('PWM PPV:'+str(PPV_PWM), xy=(0, PPV_PWM), xytext=(0, PPV_PWM),color='gray')
-		plt.title("Test PPV trend for " + TF + 
-			"; No. of train:" + str(int(history_stats[0][0])) +
-			"; No. of test:" + str(int(history_stats[0][12])))
-		plt.xlabel("save points")
-		plt.savefig(pdf, format='pdf')
+		## PPV is not avaliable at this time
+		# test_PPVs=[history_stats[n][17] for n in idx]
+		# fig = plt.figure()
+		# ax = fig.add_subplot(111)
+		# plt.plot(idx, test_PPVs, 'bo', idx, test_PPVs, 'k')
+		# plt.plot(idx, [max(test_PPVs)]*len(idx),linestyle='--', color='r',)
+		# ax.annotate(str(max(test_PPVs)), xy=(0, max(test_PPVs)), xytext=(0, max(test_PPVs)),color='b')
+		# plt.plot(idx, [PPV_PWM]*len(idx),linestyle='--', color='gray',)
+		# ax.annotate('PWM PPV:'+str(PPV_PWM), xy=(0, PPV_PWM), xytext=(0, PPV_PWM),color='gray')
+		# plt.title("Test PPV trend for " + TF + 
+		# 	"; No. of train:" + str(int(history_stats[0][0])) +
+		# 	"; No. of test:" + str(int(history_stats[0][12])))
+		# plt.xlabel("save points")
+		# plt.savefig(pdf, format='pdf')
 
-		test_AACs=[compute_ACC(history_stats[n][13],history_stats[n][14],history_stats[n][15],history_stats[n][16]) for n in idx]
+		test_AACs=records[TF]['val_acc']
 		fig = plt.figure()
 		ax = fig.add_subplot(111)
 		plt.plot(idx, test_AACs, 'bo', idx, test_AACs, 'k')
@@ -112,9 +115,7 @@ if __name__ == '__main__':
 		ax.annotate(str(max(test_AACs)), xy=(0, max(test_AACs)), xytext=(0, max(test_AACs)),color='b')
 		plt.plot(idx, [ACC_PWM]*len(idx),linestyle='--', color='gray',)
 		ax.annotate('PWM ACC:'+str(ACC_PWM), xy=(0, ACC_PWM), xytext=(0, ACC_PWM),color='gray')
-		plt.title("Test ACC trend for " + TF + 
-			"; No. of train:" + str(int(history_stats[0][0])) +
-			"; No. of test:" + str(int(history_stats[0][12])))
+		plt.title("Test ACC trend for " + TF)
 		plt.xlabel("save points")
 		plt.savefig(pdf, format='pdf')
 		plt.close("all")
