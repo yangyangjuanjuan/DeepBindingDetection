@@ -36,13 +36,14 @@ if __name__ == '__main__':
     n_words=10000  # Vocabulary size
     batch_size=16
     test_size=-1
-    for TF in os.listdir("./bindingsites")[0:1]:
+    records=dict()
+    for TF in os.listdir("./bindingsites"):
         print("modelling for TF "+TF)
         datafile='./bindingsitespkl_highscorenegative/'+TF+'_bindingsites.pkl'
         load_data, prepare_data = get_dataset('bindingsites')
         print('Loading data')
         train, valid, test = load_data(path=datafile,n_words=n_words, 
-            valid_portion=0.0, maxlen=maxlen)
+            valid_portion=0.05, maxlen=maxlen)
         if test_size > 0:
             idx = numpy.arange(len(test[0]))
             numpy.random.shuffle(idx)
@@ -58,9 +59,9 @@ if __name__ == '__main__':
         y_train = numpy.array(y_train)
         y_test = numpy.array(y_test)
 
-        sequence = Input(shape=(maxlen,), dtype='int32')
+        sequence_input = Input(shape=(maxlen,), dtype='int32')
         ## The input of LSTM must have the shape (nb_samples, timesteps, features)
-        embeded=Embedding(10, 8, input_length=maxlen)(sequence)
+        embeded=Embedding(10, 8, input_length=maxlen)(sequence_input)
         forwards = LSTM(64)(embeded)
         backwards = LSTM(64, go_backwards=True)(embeded)
 
@@ -68,11 +69,15 @@ if __name__ == '__main__':
         after_dp = Dropout(0.25)(merged)
         output = Dense(1, activation='sigmoid')(after_dp)
 
-        model = Model(input=sequence, output=output)
+        model = Model(input=sequence_input, output=output)
 
         model.compile('adam', 'binary_crossentropy', metrics=['accuracy'])
         print('Train...')
-        model.fit(X_train,y_train,
+        history=model.fit(X_train,y_train,
+            verbose=0,
             batch_size=batch_size,
             nb_epoch=3,
             validation_data=[X_test, y_test])
+        records[TF]=history.history
+    numpy.savez('./saves_highPWMscore/lstm_1to10', records=records)
+
