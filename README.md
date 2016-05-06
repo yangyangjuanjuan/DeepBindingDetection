@@ -24,8 +24,18 @@ The architecture of this bidirectional LSTM model is shown as follows, the figur
 Obtained results are as expected. Generally, if both LSTM model and bi-directional LSTM model receive same training, the later one will have worse performance. By considering bi-directional LSTM model has more sophisticated structure and double LSTM layers, double training time for bi-directional LSTM was also checked. For some TFs, bi-directional LSTM has better performance after being trained longer time.
 
 <p align="center">
-  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/bidirectional/plots/FOS_1.png" alt="structure" width="200"/>
-  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/bidirectional/plots/FOS_2.png" alt="structure" width="200"/>
+  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/bidirectional/plots/FOS_1.png" alt="structure" width="300"/>
+  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/bidirectional/plots/FOS_2.png" alt="structure" width="300"/>
+</p>
+
+<p align="center">
+  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/bidirectional/plots/RFX5_1.png" alt="structure" width="300"/>
+  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/bidirectional/plots/RFX5_2.png" alt="structure" width="300"/>
+</p>
+
+<p align="center">
+  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/bidirectional/plots/STAT1_1.png" alt="structure" width="300"/>
+  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/bidirectional/plots/STAT1_2.png" alt="structure" width="300"/>
 </p>
 
 ### Troubleshooting
