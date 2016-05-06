@@ -75,7 +75,7 @@ if __name__ == '__main__':
 	pdf.close()
 
 	pdf = matplotlib.backends.backend_pdf.PdfPages("./plots/LSTM_errs.pdf")
-	records=load_saves()
+	records=load_saves(TF="1to10")
 	TFs=records.keys()
 	print(TFs)
 	for TF in TFs:
