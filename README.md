@@ -17,7 +17,15 @@ The motivation of doing this analysis is: there could be a spacial correlation b
 The architecture of this bidirectional LSTM model is shown as follows, the figure was taken from https://github.com/hycis/bidirectional_RNN.
 
 <p align="center">
-  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/bidirectional/plots/bidirectional_lstm.png" alt="structure" width="480"/>
+  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/bidirectional/plots/bidirectional_lstm.png" alt="structure" width="400"/>
+</p>
+
+### Results
+Obtained results are as expected. Generally, if both LSTM model and bi-directional LSTM model receive same training, the later one will have worse performance. By considering bi-directional LSTM model has more sophisticated structure and double LSTM layers, double training time for bi-directional LSTM was also checked. For some TFs, bi-directional LSTM has better performance after being trained longer time.
+
+<p align="center">
+  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/bidirectional/plots/FOS_1.png" alt="structure" width="200"/>
+  <img src ="https://github.com/yangyangjuanjuan/DeepBindingDetection/blob/bidirectional/plots/FOS_2.png" alt="structure" width="200"/>
 </p>
 
 ### Troubleshooting
