@@ -37,7 +37,7 @@ if __name__ == '__main__':
     batch_size=16
     test_size=-1
     records=dict()
-    for TF in os.listdir("./bindingsites"):
+    for TF in os.listdir("./bindingsites")[:26]:
         print("modelling for TF "+TF)
         datafile='./bindingsitespkl_highscorenegative/'+TF+'_bindingsites.pkl'
         load_data, prepare_data = get_dataset('bindingsites')
@@ -76,8 +76,7 @@ if __name__ == '__main__':
         history=model.fit(X_train,y_train,
             verbose=0,
             batch_size=batch_size,
-            nb_epoch=3,
+            nb_epoch=6,
             validation_data=[X_test, y_test])
         records[TF]=history.history
     numpy.savez('./saves_highPWMscore/lstm_1to10', records=records)
-
