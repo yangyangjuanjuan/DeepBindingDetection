@@ -5,7 +5,7 @@
   
 ------
 
-Apply deep learning on predicting transcription factor (TF) binding sites
+Practice project: Apply deep learning on predicting transcription factor (TF) binding sites
 ------
 
 Deep Binding Detection (DBD) is a tool building a Recurrent Nearual Network (with Long Short Term Memory (LSTM) architecture) to descriminate transcription factor (TF) binding sites from non-binding sites. 
